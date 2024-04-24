@@ -2,6 +2,8 @@
 # terminal application launcher for sway, using fzf
 # Based on: https://gitlab.com/FlyingWombat/my-scripts/blob/master/sway-launcher
 # https://gist.github.com/Biont/40ef59652acf3673520c7a03c9f22d2a
+export FZF_DEFAULT_OPTS=
+
 shopt -s nullglob globstar
 set -o pipefail
 if ! { exec 0>&3; } 1>/dev/null 2>&1; then
@@ -315,10 +317,10 @@ readarray -t COMMAND_STR <<<$(
   fzf --ansi +s -x -d '\034' --nth ..3 --with-nth 3 \
     --print-query \
     --preview "$0 describe {2} {1}" \
-    --preview-window=up:2:noborder \
+    --preview-window=up:2:border-rounded \
     --no-multi --cycle \
     --prompt="${GLYPH_PROMPT-# }" \
-    --header='' --no-info --margin='1,2' \
+    --header='' --no-info --margin='0,0' \
     --color='16,gutter:-1' \
     <"$FZFPIPE"
 ) || exit 1
